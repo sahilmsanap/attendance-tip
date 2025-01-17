@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Mark Attendance - Division {{ division }}</h2>
+<form method="POST" action="{{ url_for('submit_attendance') }}">
+    <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input type="date" class="form-control" id="date" name="date" required>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>
+                    <select name="student_{{ student.id }}" class="form-select">
+                        <option value="present">Present</option>
+                        <option value="absent">Absent</option>
+                    </select>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit Attendance</button>
+</form>
+{% endblock %}
